@@ -29,36 +29,36 @@ public class CustomerController {
     }
 
     @PostMapping("/customers")
-    public Customer createEmployee(@RequestBody Customer customer) {
+    public Customer createCustomer(@RequestBody Customer customer) {
         return customerRepository.save(customer);
     }
 
-    @GetMapping("/employees/{id}")
-    public ResponseEntity<Customer> getEmployeeById(@PathVariable Long id) {
-        Customer employee = customerRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id :" + id));
-        return ResponseEntity.ok(employee);
+    @GetMapping("/customers/{id}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not exist with id :" + id));
+        return ResponseEntity.ok(customer);
     }
 
-    @PutMapping("/employees/{id}")
-    public ResponseEntity<Customer> updateEmployee(@PathVariable Long id, @RequestBody Customer employeeDetails){
-        Customer employee = customerRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with username :" + id));
+    @PutMapping("/customers/{id}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer customerDetails){
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not exist with username :" + id));
 
-        employee.setFirstName(employeeDetails.getFirstName());
-        employee.setLastName(employeeDetails.getLastName());
-        employee.setUsername(employeeDetails.getUsername());
+        customer.setFirstName(customerDetails.getFirstName());
+        customer.setLastName(customerDetails.getLastName());
+        customer.setUsername(customerDetails.getUsername());
 
-        Customer updatedEmployee = customerRepository.save(employee);
-        return ResponseEntity.ok(updatedEmployee);
+        Customer updatedCustomer = customerRepository.save(customer);
+        return ResponseEntity.ok(updatedCustomer);
     }
 
-    @DeleteMapping("/employees/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteEmployee(@PathVariable Long id){
-        Customer employee = customerRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id :" + id));
+    @DeleteMapping("/customers/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteCustomer(@PathVariable Long id){
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not exist with id :" + id));
 
-        customerRepository.delete(employee);
+        customerRepository.delete(customer);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
